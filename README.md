@@ -1,11 +1,5 @@
-# Introduction
+# Understanding Hibernate 1st Level Cache
 
-* Learn about Markdown basics at https://help.github.com/articles/markdown-basics.
+This project consists of several examples using Hibernate and H2 in-memory database. Check out the project and run each example.
 
-* Consider documenting the following things:-
-    * What is this project about?
-    * How to configure and get it running?
-    * External dependencies.
-    * Contact persons.
-    * Module descriptions.
-# testHibernate
+
