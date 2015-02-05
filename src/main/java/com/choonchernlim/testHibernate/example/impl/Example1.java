@@ -1,0 +1,49 @@
+package com.choonchernlim.testHibernate.example.impl;
+
+import com.choonchernlim.testHibernate.domain.User;
+import com.choonchernlim.testHibernate.example.Example;
+import com.choonchernlim.testHibernate.util.Utils;
+import static com.google.common.base.Preconditions.checkArgument;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.io.Serializable;
+
+/**
+ * Adding a new entity.
+ */
+@Service
+@Transactional
+public class Example1 extends Example {
+
+    @Autowired
+    public Example1(SessionFactory sessionFactory) {
+        super(sessionFactory);
+    }
+
+    public static void main(String[] args) {
+        Utils.runExample(Example1.class);
+    }
+
+    @Override
+    public void run() {
+        checkAllTablesEmpty();
+
+        final Session session = sessionFactory.getCurrentSession();
+
+        // new user
+        final User user = new User();
+        user.setName("Mike");
+
+        // 1 INSERT statement against DB
+        // 1 managed entity in 1st level cache
+        final Serializable userId = session.save(user);
+
+        checkArgument(1L == userId, "Successfully saved to DB");
+
+        displaySessionStats();
+    }
+}
