@@ -25,55 +25,31 @@ public class Example2 extends Example {
         super(sessionFactory);
     }
 
-    @Override
-    public void run() {
-        checkAllTablesEmpty();
-
-        final Session session = sessionFactory.getCurrentSession();
-
-        // new user
-        final User user = new User();
-        user.setName("Mike");
-
-        // 1 INSERT statement against DB
-        // 1 managed entity in 1st level cache
-        final Serializable userId = session.save(user);
-
-        checkArgument(1L == userId, "Successfully saved to DB");
-
-        // SHOULD NOT invoke a select statement against DB because it is already hibernate-managed
-        final User someUser = (User) session.get(User.class, 1L);
-
-        checkNotNull(someUser, "User exists");
-
-        displaySessionStats();
-    }
-
-    @Override
-    public void run() {
-        checkAllTablesEmpty();
-
-        final Session session = sessionFactory.getCurrentSession();
-
-        // new user
-        final User user = new User();
-        user.setName("Mike");
-
-        // 1 INSERT statement against DB
-        // 1 managed entity in 1st level cache
-        final Serializable userId = session.save(user);
-
-        checkArgument(1L == userId, "Successfully saved to DB");
-
-        // SHOULD NOT invoke a select statement against DB because it is already hibernate-managed
-        final User someUser = (User) session.get(User.class, 1L);
-
-        checkNotNull(someUser, "User exists");
-
-        displaySessionStats();
-    }
-
     public static void main(String[] args) {
         Utils.runExample(Example2.class);
+    }
+
+    @Override
+    public void run() {
+        checkAllTablesEmpty();
+
+        final Session session = sessionFactory.getCurrentSession();
+
+        // new user
+        final User user = new User();
+        user.setName("Mike");
+
+        // 1 INSERT statement against DB
+        // 1 managed entity in 1st level cache
+        final Serializable userId = session.save(user);
+
+        checkArgument(1L == userId, "Successfully saved to DB");
+
+        // SHOULD NOT invoke a select statement against DB because it is already hibernate-managed
+        final User someUser = (User) session.get(User.class, 1L);
+
+        checkNotNull(someUser, "User exists");
+
+        displaySessionStats();
     }
 }

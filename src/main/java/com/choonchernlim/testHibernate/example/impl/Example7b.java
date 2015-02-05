@@ -1,10 +1,9 @@
 package com.choonchernlim.testHibernate.example.impl;
 
-import com.choonchernlim.testHibernate.domain.Project;
-import com.choonchernlim.testHibernate.domain.ProjectUser;
+import com.choonchernlim.testHibernate.bean.ProjectUserBean;
 import com.choonchernlim.testHibernate.example.Example;
 import com.choonchernlim.testHibernate.util.Utils;
-import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkArgument;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -13,28 +12,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Executing `Example6` where 1 project has 3 users, but querying other entities using getter methods.
  */
 @Service
 @Transactional
-public class Example7 extends Example {
+public class Example7b extends Example {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(Example7.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(Example7b.class);
 
     private final Example6 example6;
 
     @Autowired
-    public Example7(SessionFactory sessionFactory, Example6 example6) {
+    public Example7b(SessionFactory sessionFactory, Example6 example6) {
         super(sessionFactory);
         this.example6 = example6;
     }
 
     public static void main(String[] args) {
-        Utils.runExample(Example7.class);
+        Utils.runExample(Example7b.class);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void run() {
         example6.run();
 
@@ -47,19 +49,24 @@ public class Example7 extends Example {
         displaySessionStats();
 
         // 1 SELECT statement against DB
-        final Project project = (Project) session.get(Project.class, 1L);
+        final List<ProjectUserBean> projectUserBeans = session.createQuery(
+                "select new com.choonchernlim.testHibernate.bean.ProjectUserBean(p.name, pu.user.name) from Project p join p.projectUsers pu where p.id = :projectId")
+                .setLong("projectId", 1L)
+                .list();
 
-        checkNotNull(project, "Project exists");
+        checkArgument(projectUserBeans.size() == 3, "3 project users");
 
-        // 1 SELECT statement against DB
-        for (ProjectUser projectUser : project.getProjectUsers()) {
-            LOGGER.debug("Project [{}] has project user [{}]", project.getName(), projectUser.getUser().getName());
+        for (ProjectUserBean projectUserBean : projectUserBeans) {
+            LOGGER.debug("Project [{}] has project user [{}]",
+                         projectUserBean.getProjectName(),
+                         projectUserBean.getUserName());
         }
 
         // everything is back (Project, User, ProjectUser) in 1st level cache
         displaySessionStats();
 
         // NOTES:
-        // - while it's very convenient, a lot of querying against DB, probably not efficient when dealing with a lot of data
+        // - assuming we are only cherry picking a few fields, another approach is to store them in a bean
+        // - reduces number of DTOs needed between layers
     }
 }
