@@ -41,6 +41,7 @@ public class Example8 extends Example {
 
         Project project = (Project) session.get(Project.class, 1L);
 
+        // remove all project users
         project.getProjectUsers().clear();
 
         session.saveOrUpdate(project);

@@ -46,7 +46,6 @@ public class Example5a extends Example {
         // attempt to update existing entity by manually hardcoding the id
         final User anotherUser = new User();
         anotherUser.setId(1L);
-        anotherUser.setName("Kurt");
 
         final Object mergedUser = session.merge(anotherUser);
 

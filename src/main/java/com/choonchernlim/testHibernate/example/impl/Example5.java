@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.Serializable;
 
 /**
- * Updating non-Hibernate managed entity where entity with same identified already exists in session.
+ * Deleting non-Hibernate managed entity where entity with same identified already exists in session.
  */
 @Service
 @Transactional
@@ -46,7 +46,6 @@ public class Example5 extends Example {
         // attempt to update existing entity by manually hardcoding the id
         final User anotherUser = new User();
         anotherUser.setId(1L);
-        anotherUser.setName("Kurt");
 
         // SHOULD BLOW UP because `anotherUser` is not Hibernate-managed
         session.delete(anotherUser);
