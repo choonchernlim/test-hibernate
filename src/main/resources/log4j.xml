@@ -15,31 +15,10 @@
         <level value="debug"/>
     </logger>
 
-    <!--<logger name="org.springframework.orm.hibernate4.HibernateTransactionManager">-->
-    <!--<level value="debug"/>-->
-    <!--</logger>-->
-
-    <!--<logger name="org.springframework.jdbc">-->
-    <!--<level value="debug"/>-->
-    <!--</logger>-->
-
-    <!--<logger name="org.springframework">-->
-    <!--<level value="warn"/>-->
-    <!--</logger>-->
-
-    <!--<logger name="org.hibernate.cache">-->
-    <!--<level value="debug"/>-->
-    <!--</logger>-->
-
     <!--Display all JDBC parameters-->
     <logger name="org.hibernate.type.descriptor.sql">
         <level value="trace"/>
     </logger>
-
-    <!--<logger name="org.hibernate">-->
-    <!--<level value="warn"/>-->
-    <!--</logger>-->
-
 
     <root>
         <priority value="warn"/>
