@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.Serializable;
 
 /**
- * Deleting non-Hibernate managed entity where entity with same identified already exists in session.
+ * Deleting non-Hibernate managed entity where entity with same identifier already exists in session.
  */
 @Service
 @Transactional

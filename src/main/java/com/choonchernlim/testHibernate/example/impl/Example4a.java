@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.Serializable;
 
 /**
- * Using merge() to update non-Hibernate managed entity.
+ * Using `session.merge(..)` to update non-Hibernate managed entity.
  */
 @Service
 @Transactional

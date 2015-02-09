@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Executing `Example6` where 1 project has 3 users, but querying other entities using getter methods.
+ * Executing `Example6` where 1 project has 3 users, but querying other entities and storing them into beans.
  */
 @Service
 @Transactional
