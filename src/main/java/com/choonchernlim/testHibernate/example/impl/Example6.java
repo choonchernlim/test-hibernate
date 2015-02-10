@@ -42,16 +42,9 @@ public class Example6 extends Example {
         final Project newProject = new Project();
         newProject.setName("Project");
 
-        // 1 INSERT statements against DB
-        // 1 managed entities in 1st level cache
-        session.save(newProject);
-
         // adding 3 new users and associate them to the project
         // 3 INSERT statements against DB for User
-        // 3 INSERT statements against DB for ProjectUser
         // 3 managed entities in 1st level cache for User
-        // 3 managed entities in 1st level cache for ProjectUser
-        // 1 managed collection in 1st level cache for ProjectUsers
         for (int i = 0; i < 3; ++i) {
             final User newUser = new User();
             newUser.setName("User " + i);
@@ -63,9 +56,14 @@ public class Example6 extends Example {
             newProjectUser.setDatetime(LocalDate.now());
 
             newProject.addProjectUser(newProjectUser);
-
-            session.saveOrUpdate(newProject);
         }
+
+        // 1 INSERT statements against DB
+        // 3 INSERT statements against DB for ProjectUser
+        // 1 managed entity in 1st level cache for Project
+        // 3 managed entities in 1st level cache for ProjectUser
+        // 1 managed collection in 1st level cache for ProjectUsers
+        session.save(newProject);
 
         LOGGER.debug("Syncing against DB so that the session displays latest stats...");
 
