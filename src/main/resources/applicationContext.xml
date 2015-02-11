@@ -24,8 +24,13 @@
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
+
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
+
+                <!-- Enable session factory statistics -->
+                <prop key="hibernate.generate_statistics">true</prop>
+
                 <prop key="jadira.usertype.autoRegisterUserTypes">true</prop>
             </props>
         </property>
