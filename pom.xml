@@ -3,12 +3,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>edu.mayo.commons.parents</groupId>
-        <artifactId>standard-parent</artifactId>
-        <version>1.4.1</version>
-    </parent>
-
     <groupId>edu.mayo.testHibernate</groupId>
     <artifactId>testHibernate</artifactId>
     <version>1.0</version>
